@@ -1,3 +1,7 @@
+import * as acorn from "https://code4fukui.github.io/acorn-es/acorn/src/index.js";
+
+globalThis.acorn = acorn;
+
 /**
  * @license
  * Copyright 2013 Google LLC
@@ -8,7 +12,7 @@
  * @fileoverview Interpreting JavaScript in JavaScript.
  * @author fraser@google.com (Neil Fraser)
  */
-'use strict';
+
 
 /**
  * Create a new interpreter.
@@ -18,7 +22,7 @@
  *     global scope object.
  * @constructor
  */
-var Interpreter = function(code, opt_initFunc) {
+export var Interpreter = function(code, opt_initFunc) {
   if (typeof code === 'string') {
     code = this.parse_(code, 'code');
   }
