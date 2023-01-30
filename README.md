@@ -18,3 +18,4 @@ https://groups.google.com/g/js-interpreter-announce
 
 - fix some demos
 - supports const / let
+- add test code
