@@ -13,3 +13,8 @@ https://code4fukui.github.io/JS-Interpreter/docs.html
 Developers using JS-Interpreter should subscribe to the announcement newsgroup.
 Security issues and major changes will be posted here:
 https://groups.google.com/g/js-interpreter-announce
+
+## todo
+
+- fix some demos
+- supports const / let
