@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <title>JS-Interpreter JSON Demo</title>
   <link href="style.css" rel="stylesheet" type="text/css">
-  <script src="../acorn.js"></script>
-  <script src="../interpreter.js"></script>
-  <script>
+  <script type=module>
+    import { Interpreter } from "../interpreter.js";
+
     var myInterpreter;
     function initAlert(interpreter, globalObject) {
       var wrapper = function alert(text) {
@@ -83,6 +83,12 @@
       }
       field.focus();
     }
+    onload = () => {
+      disable(true);
+    };
+    document.getElementById("parseButton").onclick = () => parseButton();
+    document.getElementById("stepButton").onclick = () => stepButton();
+    document.getElementById("runButton").onclick = () => runButton();
   </script>
 </head>
 <body>
@@ -105,9 +111,9 @@ var data = JSON.parse(getInput());
 alert(Object.keys(data));
 setOutput(JSON.stringify(data));
 </textarea><br>
-  <button onclick="parseButton()">Parse</button>
-  <button onclick="stepButton()" id="stepButton" disabled="disabled">Step</button>
-  <button onclick="runButton()" id="runButton" disabled="disabled">Run</button>
+  <button id="parseButton">Parse</button>
+  <button id="stepButton" disabled="disabled">Step</button>
+  <button id="runButton" disabled="disabled">Run</button>
   </p>
 
   <p>JSON Input: <input id="JSON_input" style="width: 90%" value='{"apollo11":["Neil Armstrong","Buzz Aldrin"],"apollo12":["Pete Conrad","Alan Bean"],"apollo13":[],"apollo14":["Alan Shepard","Edgar Mitchell"],"apollo15":["David Scott","James Irwin"],"apollo16":["John W. Young","Charles Duke"],"apollo17":["Eugene Cernan","Harrison Schmitt"]}'></p>
@@ -115,8 +121,5 @@ setOutput(JSON.stringify(data));
 
   <p>Back to the <a href="../docs.html">JS-Interpreter documentation</a>.</p>
 
-  <script>
-    disable('disabled');
-  </script>
 </body>
 </html>

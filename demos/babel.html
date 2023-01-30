@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <title>JS-Interpreter Babel Demo</title>
   <link href="style.css" rel="stylesheet" type="text/css">
-  <script src="../acorn.js"></script>
-  <script src="../interpreter.js"></script>
-  <script src="babel.min.js"></script>
-  <script>
+  <script type="module">
+    import { Interpreter } from "../interpreter.js";
+    import { Babel } from "./babel.min.js";
+    
     var myInterpreter;
     function initAlert(interpreter, globalObject) {
       var wrapper = function alert(text) {
@@ -22,6 +22,7 @@
       var options = {
         'presets': ['es2015']
       };
+      console.log(Babel);
       code = Babel.transform(code, options).code;
 
       alert('Code transpiled to:\n' + code);
@@ -38,8 +39,10 @@
     }
 
     function disable(disabled) {
-      document.getElementById('runButton').disabled = disabled;
+      document.getElementById('btnrun').disabled = disabled;
     }
+    btnparse.onclick = parseButton;
+    btnrun.onclick = runButton;
   </script>
 </head>
 <body>
@@ -75,8 +78,8 @@ const fibonacci = (n, output) => {
 fibonacci(16, result);
 alert(result.join(', '));
 </textarea><br>
-  <button onclick="parseButton()">Parse</button>
-  <button onclick="runButton()" id="runButton" disabled="disabled">Run</button>
+  <button id=btnparse>Parse</button>
+  <button id=btnrun disabled="disabled">Run</button>
   </p>
 
   <p>Back to the <a href="../docs.html">JS-Interpreter documentation</a>.</p>

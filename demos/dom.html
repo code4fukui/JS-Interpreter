@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <title>JS-Interpreter DOM Demo</title>
   <link href="style.css" rel="stylesheet" type="text/css">
-  <script src="../acorn.js"></script>
-  <script src="../interpreter.js"></script>
-  <script>
+  <script type="module">
+    import { Interpreter } from "../interpreter.js";
+
     var myInterpreter;
     function initDom(interpreter, globalObject) {
       // Given a native Node or Element, create a pseudo version.
@@ -102,12 +102,14 @@
           {get: innerHTMLGetter, set: innerHTMLSetter});
 
       // Define 'Element.appendChild' function.
-      var wrapper = function appendChild(pseudoChild) {
-        this.nativeNode.appendChild(pseudoChild.nativeNode);
-        return pseudoChild;
-      };
-      interpreter.setProperty(pseudoElementProto, 'appendChild',
-          interpreter.createNativeFunction(wrapper));
+      interpreter.setProperty(
+        pseudoElementProto,
+        'appendChild',
+        interpreter.createNativeFunction(function(ch) {
+          this.nativeNode.appendChild(ch.nativeNode);
+          return ch;
+        })
+      );
 
       // Create 'document' global object.
       var pseudoDocument = interpreter.nativeToPseudo({});
@@ -143,8 +145,7 @@
     }
 
     function parseButton() {
-      var code = document.getElementById('code').value;
-      myInterpreter = new Interpreter(code, initDom);
+      myInterpreter = new Interpreter(code.value, initDom);
       disable('');
     }
 
@@ -157,8 +158,10 @@
     }
 
     function disable(disabled) {
-      document.getElementById('runButton').disabled = disabled;
+      btnrun.disabled = disabled;
     }
+    btnparse.onclick = () => parseButton();
+    btnrun.onclick = () => runButton();
   </script>
 </head>
 <body>
@@ -195,8 +198,8 @@ italics.appendChild(document.createTextNode('Hello from '));
 italics.innerHTML += '<u>JS-Interpreter</u>';
 document.getElementById('banner').appendChild(italics);
 </textarea><br>
-  <button onclick="parseButton()">Parse</button>
-  <button onclick="runButton()" id="runButton" disabled="disabled">Run</button>
+  <button id=btnparse>Parse</button>
+  <button id="btnrun" disabled="disabled">Run</button>
   </p>
 
   <p>Back to the <a href="../docs.html">JS-Interpreter documentation</a>.</p>
