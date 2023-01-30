@@ -10,11 +10,10 @@
 
     let myInterpreter;
 
-    //const letconst2var = (s) => s.replace(/((let|const)\s)/g, "var ");
-    const let2var = (s) => s.replace(/((let)\s)/g, "var ");
+    const letconst2var = (s) => s.replace(/(let\s)/g, "var ").replace(/(const\s)/g, "var   ");
 
     function parseButton() {
-      const src = let2var(code.value);
+      const src = letconst2var(code.value);
       console.log(src);
       myInterpreter = new Interpreter(src, (interpreter, globalObject) => {
         // alert
@@ -91,8 +90,8 @@
   click <em>Step</em> repeatedly, or click <em>Run</em> once.
   Open your browser's console for errors.</p>
   <p><textarea id="code" spellcheck="false">
-let result = [];
-function fibonacci(n, output) {
+const result = [];
+const fibonacci = function(n, output) {
   let a = 1, b = 1, sum;
   for (let i = 0; i &lt; n; i++) {
     output.push(a);
