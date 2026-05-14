@@ -1,25 +1,44 @@
-JS-Interpreter
-==============
+# JS-Interpreter
 
-A sandboxed JavaScript interpreter in JavaScript.  Execute arbitrary JavaScript
-code line by line in isolation and safety.
+> 日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
 
-Live demo:
-https://code4fukui.github.io/JS-Interpreter/
+A sandboxed JavaScript interpreter in JavaScript. Execute arbitrary JavaScript code line by line in isolation and safety.
 
-Documentation:
-https://code4fukui.github.io/JS-Interpreter/docs.html
+## Demo
+Live demo: https://code4fukui.github.io/JS-Interpreter/
 
-Developers using JS-Interpreter should subscribe to the announcement newsgroup.
-Security issues and major changes will be posted here:
-https://groups.google.com/g/js-interpreter-announce
+## Features
+- Execute JavaScript code in a sandboxed environment
+- Step through code execution line by line
+- Pause and resume code execution
+- Serialize and deserialize interpreter state
 
-## todo
+## Requirements
+- None, runs in any modern web browser
 
-- fix some demos
-- supports const / let
-- add test code
+## Usage
+1. Import the interpreter module:
+   ```javascript
+   import { Interpreter } from "https://code4fukui.github.io/JS-Interpreter/interpreter.js";
+   ```
+2. Create a new interpreter instance with your JavaScript code:
+   ```javascript
+   const myCode = `
+   var result = [];
+   function fibonacci(n, output) {
+     // ...
+   }
+   fibonacci(16, result);
+   alert(result.join(', '));
+   `;
+   const myInterpreter = new Interpreter(myCode);
+   ```
+3. Step through the code execution:
+   ```javascript
+   while (myInterpreter.step()) {
+     // Execute one step
+   }
+   ```
 
-## dependencies
-
-- [acorn-es](https://github.com/code4fukui/acorn-es/)
+## License
+Apache License 2.0
